@@ -26,14 +26,14 @@ let usuarios=[
 
 
 //ruta para obtener todos los usuarios de la api
-app.get("/usuarios", (req,res)=>{
+app.get("/usuarios/todos", (req,res)=>{
     res.json(usuarios)
 })
 
 
 
 //ruta para obtener un usuario especifico
-app.get("/usuarios/:id",(req,res)=>{
+app.get("/usuarios/buscar/:id",(req,res)=>{
     const id=parseInt(req.params.id);//convierte el tipo de id a numero
     //console.log(typeof(id))
     const usuario=usuarios.find(user=>user.id===id)//para encontrar usuario por el id
@@ -51,7 +51,7 @@ if(!usuario){
 
 
 //ruta para crear un nuevo usuario
-app.post("/usuarios", (req,res)=>{
+app.post("/usuarios/crear", (req,res)=>{
     const {nombre, email}=req.body; //desestructuring
     const nuevoUsuario={
         id:usuarios.length+1,
@@ -69,7 +69,7 @@ app.post("/usuarios", (req,res)=>{
 
 
 //ruta para modificar o actualizar un usuario, el .put es para modificacion o actualizacion de datos del usuario
-app.put("/usuarios/:id", (req, res)=>{   
+app.put("/usuarios/modificar/:id", (req, res)=>{   
     const id =parseInt(req.params.id);
     const {nuevoNombre}=req.body;
     const usuario=usuarios.find(user=> user.id===id);
@@ -83,6 +83,30 @@ app.put("/usuarios/:id", (req, res)=>{
     })
 })
 
+
+//ruta para eliminar un usuario
+app.delete("/usuarios/eliminar/:id", (req,res)=>{
+
+    //ontener el id del usuario por params de la url
+    const id=parseInt(req.params.id);
+
+    //buscar en la lista de usuarios el id que corresponda y recuperamos el indice
+    //   array=[10,20,5, 8]
+    //posicion  0, 1, 2, 3
+    const indice = usuarios.findIndex(user=>user.id===id);
+    //console.log(indice)
+    //en caso de no encontrar el usuario a eliminar
+    if(indice===-1){
+        res.status(404).json({
+            mensaje:`usuario no encontrado`
+        })
+    }
+    //dado que es una lista, eliminamos el usuario con el indice encontrado
+    usuarios.splice(indice,1)
+    res.status(201).json({
+        mensaje:`usuario ${id} eliminado correctamente`
+    })
+});
 
 
 
