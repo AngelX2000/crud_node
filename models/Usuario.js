@@ -6,7 +6,7 @@ const Usuario = sequelize.define('Usuario', {
         type:DataTypes.STRING, // Tipo de dato: cadena de texto
         allowNull: false // No puede ser nulo
     },
-    correo: {
+    email: {
         type:DataTypes.STRING, // Tipo de dato: cadena de texto
         allowNull: false, // No puede ser nulo
         unique: true // Debe ser único
