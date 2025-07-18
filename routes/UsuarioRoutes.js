@@ -10,5 +10,7 @@ router.get('/usuarios/buscar/:id', controlador.obtenerUsuarioPorId);
 router.post('/usuarios/crear', controlador.crearUsuario);
 //ruta para modificar o actualizar
 router.put('/usuarios/modificar/:id', controlador.modificarUsuario);   
+//ruta para eliminar usuario
+router.delete('/usuarios/eliminar/:id', controlador.eliminarUsuario)
 module.exports=router; // Exporta las rutas para que puedan ser utilizadas en index.js
 
